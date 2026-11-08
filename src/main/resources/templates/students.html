@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Students</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #263b5e;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #263b5e;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f4f6f8;
+        }
+
+        .message {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #263b5e;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Registered Students</h1>
+
+    <p class="message"
+       th:if="${message}"
+       th:text="${message}"></p>
+
+    <div class="table-wrapper"
+         th:if="${students != null and !students.isEmpty()}">
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Age</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.id}"></td>
+                <td th:text="${student.firstName}"></td>
+                <td th:text="${student.lastName}"></td>
+                <td th:text="${student.email}"></td>
+                <td th:text="${student.age}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="message"
+       th:if="${students != null and students.isEmpty() and message == null}">
+        No students have been registered yet.
+    </p>
+
+    <a class="link" th:href="@{/student/register}">
+        Register a Student
+    </a>
+</div>
+</body>
+</html>
